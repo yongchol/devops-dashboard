@@ -1,7 +1,8 @@
-# devops-devkit
+# devops-dashboard
 
 This project is aimed to help dev work for devops member, and can be used as a dev template.
 It consists of frontend and backend framework.
+Currently It will used to browse devops tools like dashboard.
 
 
 Dev Stacks:
@@ -10,7 +11,8 @@ Dev Stacks:
 * Node.js
 * Nginx
 * Docker
-* MySQL
+* Postgresql
+* Redis
 
 ## Prerequisites
 
@@ -75,7 +77,19 @@ cd backend
 npx express-generator --view=pug
 ```
 
+## Nginx
 
+Nginx will be used reverse proxy web of frontend and backend server.
+
+## Docker
+
+Docker compose will be used to maintain all docker services.
+
+```
+docker-compose build
+docker-compose up
+docker-compose down
+```
 
 
 
