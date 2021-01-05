@@ -2,18 +2,21 @@ version: "3"
 services:
   frontend:                 
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./frontend    
     container_name: app_frontend
     restart: always
-    ports:
-      - "8080:80"   
+    volumes:
+      - ./frontend/:/app      
+      - /app/node_modules
+    stdin_open: true
+    tty: true  
     networks:
-      - app           
-      
-  backend:                          
+      - app
+              
+  backend:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./backend  
     container_name: app_backend
     restart: always
@@ -35,17 +38,18 @@ services:
     ports:
       - "3001:3001"
 
-  # nginx:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./nginx 
-  #   ports:
-  #     - "3000:80" 
-  #   restart: always  
-  #   volumes:
-  #     - ./front/build:/app:ro
-  #   networks:
-  #     - app
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx 
+    ports:
+      - "8080:80" 
+    restart: always  
+    networks:
+      - app
+    depends_on:
+      - frontend
+      - backend
     
   postgres:
     build:
